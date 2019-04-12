@@ -1,0 +1,23 @@
+from apps.users_app.models import *
+
+brett = Users.objects.create(first_name="Brett",last_name="Jory",email_address="fake@e.mail",age=26)
+
+rui = Users.objects.create(first_name="Rui",last_name="Tachibana",email_address="pout@imouto.jp",age=17)
+
+hina = Users.objects.create(first_name="Hina",last_name="Tachibana",email_address="bad@teacher.edu",age=24)
+Users.objects.all()
+
+last = Users.objects.last()
+
+first = Users.objects.first()
+
+c = Users.objects.get(id=3)
+c.last_name = "Pancakes"
+c.save()
+
+c = Users.objects.get(id=2)
+c.delete()
+
+alpha = Users.objects.order_by('first_name')
+
+desc_alpha = Users.objects.order_by('-first_name')
