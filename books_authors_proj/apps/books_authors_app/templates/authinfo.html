@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Books & Authors</title>
+</head>
+<body>
+    
+    <div class="container">
+
+        <div class="header">
+            <a href="/">Home</a>
+        </div>
+
+        <div class="authinfo">
+
+            <h1>{{author_html.first_name}} {{author_html.last_name}}</h1>
+            <p>ID: {{author_html.id}}</p>
+            <p>
+                Notes:
+                <p>{{author_html.notes}}</p>
+            </p>
+            <p>Books:</p>
+            <ul>
+                {% for book in author_books_html %}
+                    <li>{{book.title}}</li>
+                {% endfor %}
+            </ul>
+            {% if messages %}
+                {% for message in messages %}
+                    <p class="{{message.tags}}">{{message}}</p>
+                {% endfor %}
+            {% endif %}
+            <form action="/add_book/{{author_html.id}}" method="post">
+                {% csrf_token %}
+                <select name="book" id="add_book">
+                    {% for book in all_books_html %}
+                        <option value="{{book.id}}">{{book.title}}</option>
+                    {% endfor %}
+                </select>
+                <input type="submit" value="Add">
+            </form>
+
+        </div>
+    </div>
+
+</body>
+</html>

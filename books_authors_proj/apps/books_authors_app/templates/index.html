@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Books & Authors</title>
+</head>
+<body>
+    
+    <div class="container">
+
+        <div class="add-area">
+            <h1>Add a Book</h1>
+            {% if messages %}
+                {% for message in messages %}
+                    <p class="{{message.tags}}">{{message}}</p>
+                {% endfor %}
+            {% endif %}
+            <form action="/new_book" method="post">
+                {% csrf_token %}
+                <p>Title</p>
+                <input type="text" name="title" id="title-input">
+                <p>Description</p>
+                <textarea name="desc" id="desc-input" cols="30" rows="5"></textarea>
+                <input type="submit" value="Add">
+            </form>
+        </div>
+
+        <div class="book-list">
+            
+            <table>
+                <thead>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Action</th>
+                </thead>
+                {% for book in book_list_html %}
+                    <tr>
+                        <td>{{book.id}}</td>
+                        <td>{{book.title}}</td>
+                        <td><a href="/books/{{book.id}}">View</a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+    </div>
+
+</body>
+</html>

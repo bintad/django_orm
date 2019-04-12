@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Books & Authors</title>
+</head>
+<body>
+    
+    <div class="container">
+
+        <div class="add-area">
+            <h1>Add an Author</h1>
+            {% if messages %}
+                {% for message in messages %}
+                    <p class="{{message.tags}}">{{message}}</p>
+                {% endfor %}
+            {% endif %}
+            <form action="/new_author" method="post">
+                {% csrf_token %}
+                <p>First Name</p>
+                <input type="text" name="fname" id="fname-input">
+                <p>Last Name</p>
+                <input type="text" name="lname" id="lname-input">
+                <p>Notes</p>
+                <textarea name="notes" id="notes-input" cols="30" rows="5"></textarea>
+                <input type="submit" value="Add">
+            </form>
+        </div>
+
+        <div class="auth-list">
+            
+            <table>
+                <thead>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Action</th>
+                </thead>
+                {% for author in author_list_html %}
+                    <tr>
+                        <td>{{author.id}}</td>
+                        <td>{{author.first_name}} {{author.last_name}}</td>
+                        <td><a href="/authors/{{author.id}}">View</a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+    </div>
+
+</body>
+</html>
